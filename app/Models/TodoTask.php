@@ -14,7 +14,6 @@ class TodoTask extends Model
 
     protected $fillable = [
         'title',
-        'description',
         'completed'
     ];
 

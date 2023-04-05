@@ -19,9 +19,10 @@ class TodoController extends Controller
         return TodoResource::collection(auth()->user()->todos()->latest()->get());
     }
 
-    public function show()
+    public function show(Todo $todo)
     {
-
+        $todo->load('tasks');
+        return new TodoResource($todo);
     }
 
     public function store(CreateTodoRequest $request)

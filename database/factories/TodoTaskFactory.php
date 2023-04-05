@@ -18,7 +18,6 @@ class TodoTaskFactory extends Factory
     {
         return [
             'title' => fake()->sentence(),
-            'description' => fake()->paragraph(),
             'completed' => fake()->boolean()
         ];
     }

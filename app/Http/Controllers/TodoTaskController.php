@@ -20,4 +20,10 @@ class TodoTaskController extends Controller
         $task->save();
         return new TodoTaskResource($task->fresh());
     }
+
+    public function destroy(TodoTask $task): void
+    {
+        $task->delete();
+        return;
+    }
 }

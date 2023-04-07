@@ -30,4 +30,5 @@ Route::prefix('/todos')->middleware(['auth:api'])->group(function () {
 
 Route::prefix('/todo_tasks')->middleware(['auth:api'])->group(function () {
     Route::put('/{task}', [TodoTaskController::class, 'update']);
+    Route::delete('/{task}', [TodoTaskController::class, 'destroy']);
 });

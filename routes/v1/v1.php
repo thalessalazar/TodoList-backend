@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MeController;
 use App\Http\Controllers\TodoController;
+use App\Http\Controllers\TodoTaskController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('login', [AuthController::class, 'login']);
@@ -24,4 +25,9 @@ Route::prefix('/todos')->middleware(['auth:api'])->group(function () {
     Route::post('', [TodoController::class, 'store']);
     Route::put('/{todo}', [TodoController::class, 'update']);
     Route::delete('/{todo}', [TodoController::class, 'destroy']);
+    Route::post('/{todo}/todo_tasks', [TodoController::class, 'addTask']);
+});
+
+Route::prefix('/todo_tasks')->middleware(['auth:api'])->group(function () {
+    Route::put('/{task}', [TodoTaskController::class, 'update']);
 });

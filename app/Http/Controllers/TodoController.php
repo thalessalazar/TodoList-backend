@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateTodoRequest;
+use App\Http\Requests\CreateTodoTaskRequest;
 use App\Http\Requests\UpdateTodoRequest;
 use App\Http\Resources\TodoResource;
+use App\Http\Resources\TodoTaskResource;
 use App\Models\Todo;
 
 class TodoController extends Controller
@@ -47,5 +49,12 @@ class TodoController extends Controller
     {
         $todo->delete();
         return;
+    }
+
+    public function addTask(Todo $todo, CreateTodoTaskRequest $request)
+    {
+        $input = $request->validated();
+        $todoTask = $todo->tasks()->create($input);
+        return new TodoTaskResource($todoTask);
     }
 }

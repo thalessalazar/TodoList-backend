@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
+use App\Models\Transaction;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -69,6 +70,11 @@ class User extends Authenticatable implements JWTSubject
     public function todos(): HasMany
     {
         return $this->hasMany(Todo::class);
+    }
+
+    public function transactions(): HasMany
+    {
+        return $this->hasMany(Transaction::class);
     }
 
     public function verifiedEmail()

@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             UserAdminSeeder::class,
             UserSeeder::class,
             TodoSeeder::class,
+            TransactionSeeder::class,
         ]);
     }
 }

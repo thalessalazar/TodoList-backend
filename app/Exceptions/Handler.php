@@ -63,6 +63,17 @@ class Handler extends ExceptionHandler
             ], 404);
         });
 
+        $this->renderable(function (NotFoundHttpException $exception, Request $request) {
+            $modelName = class_basename($exception->getPrevious()->getModel());
+            $apiErrorCode = 'NotFoundException';
+            $message = $modelName . ' not found';
+
+            return response()->json([
+                'error' => $apiErrorCode,
+                'message' => $message
+            ]);
+        });
+
         $this->renderable(function (AccessDeniedHttpException $exception, Request $request) {
             return response()->json([
                 'error' => class_basename(AuthorizationException::class),

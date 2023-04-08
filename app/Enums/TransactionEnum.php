@@ -4,5 +4,5 @@ namespace App\Enums;
 
 final class TransactionEnum
 {
-    const TYPE = ['INFLOW', 'OUTFLOW'];
+    const TYPE = ['REVENUE', 'EXPENSE'];
 }

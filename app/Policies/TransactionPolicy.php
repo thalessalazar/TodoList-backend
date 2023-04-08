@@ -24,4 +24,14 @@ class TransactionPolicy
     {
         return $user->id === $transaction->user_id;
     }
+
+    public function update(User $user, Transaction $transaction)
+    {
+        return $user->id === $transaction->user_id;
+    }
+
+    public function destroy(User $user, Transaction $transaction)
+    {
+        return $user->id === $transaction->user_id;
+    }
 }

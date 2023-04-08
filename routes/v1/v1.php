@@ -38,8 +38,13 @@ Route::middleware(['auth:api'])->group(function () {
     });
 
     Route::prefix('/finance')->group(function () {
-        Route::get('/transactions', [TransactionController::class, 'index']);
-        Route::post('/transactions', [TransactionController::class, 'store']);
-        Route::get('/transactions/{transaction}', [TransactionController::class, 'show']);
+        Route::prefix('/transactions')->group(function () {
+            Route::get('/stats', [TransactionController::class, 'stats']);
+            Route::get('', [TransactionController::class, 'index']);
+            Route::post('', [TransactionController::class, 'store']);
+            Route::get('/{transaction}', [TransactionController::class, 'show']);
+            Route::delete('/{transaction}', [TransactionController::class, 'destroy']);
+            Route::put('/{transaction}', [TransactionController::class, 'update']);
+        });
     });
 });

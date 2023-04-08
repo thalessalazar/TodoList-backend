@@ -6,7 +6,7 @@ use App\Enums\TransactionEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class CreateTransactionRequest extends FormRequest
+class UpdateTransactionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,11 +26,11 @@ class CreateTransactionRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'string|required',
-            'value' => 'numeric|required|regex:/^\d+(\.\d{1,2})?$/',
-            'date' => 'date|required',
+            'title' => 'string|sometimes',
+            'value' => 'numeric|sometimes|regex:/^\d+(\.\d{1,2})?$/',
+            'date' => 'date|sometimes',
             'type' => [
-                'required',
+                'sometimes',
                 Rule::in(TransactionEnum::TYPE)
             ]
         ];

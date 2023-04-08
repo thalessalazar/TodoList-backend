@@ -16,6 +16,7 @@ class TransactionResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => (integer) $this->id,
             'title' => (string) $this->title,
             'value' => (integer) $this->value / 100,
             'type' => (string) $this->type,

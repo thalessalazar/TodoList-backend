@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->id();
             $table->string('title');
             $table->bigInteger('value');
-            $table->enum('type', ['INFLOW', 'OUTFLOW']);
+            $table->enum('type', ['REVENUE', 'EXPENSE']);
             $table->dateTime('date');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')

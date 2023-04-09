@@ -61,7 +61,7 @@ class TransactionController extends Controller
 
     public function stats()
     {
-        return $this->financeService->balance(auth()->id());
+        return $this->financeService->stats(auth()->id());
     }
 
     public function destroy(Transaction $transaction): void

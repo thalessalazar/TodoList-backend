@@ -14,16 +14,12 @@ class FinanceService
         $this->transactionRepository = $transactionRepository;
     }
 
-    public function balance(int $user_id)
+    public function stats(int $user_id): array
     {
-        $transactions = $this->transactionRepository->getAllByUserId($user_id);
-
-        $balance = 0;
-
-        foreach ($transactions as $transaction) {
-            $balance += $transaction->type === 'REVENUE' ? $transaction->value : -$transaction->value;
-        }
-
-        return $balance / 100;
+        return [
+            'balance' => $this->transactionRepository->getBalanceByUserId($user_id),
+            'expenses' => $this->transactionRepository->getTotalExpensesByUserId($user_id),
+            'revenues' => $this->transactionRepository->getTotalRevenuesByUserId($user_id),
+        ];
     }
 }

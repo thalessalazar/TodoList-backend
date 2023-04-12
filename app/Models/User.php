@@ -25,7 +25,8 @@ class User extends Authenticatable implements JWTSubject
         'last_name',
         'email',
         'password',
-        'confirmation_token'
+        'confirmation_token',
+        'image_profile'
     ];
 
     /**
@@ -83,5 +84,10 @@ class User extends Authenticatable implements JWTSubject
         $this->email_verified_at = now();
 
         return $this;
+    }
+
+    public function generateImageProfilePath(): string
+    {
+        return sha1((string) $this->id) . '/profile/' . ;
     }
 }

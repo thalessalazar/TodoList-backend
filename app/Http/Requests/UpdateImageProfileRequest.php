@@ -24,7 +24,7 @@ class UpdateImageProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'image_profile' => 'image|required|mimes:png,jpg'
+            'image_profile' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ];
     }
 }

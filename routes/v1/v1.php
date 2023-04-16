@@ -21,6 +21,7 @@ Route::middleware(['auth:api'])->group(function () {
         Route::get('', [MeController::class, 'index']);
         Route::put('update-profile', [MeController::class, 'updateProfile']);
         Route::put('update-password', [AuthController::class, "updatePassword"]);
+        Route::post('update-image-profile', [MeController::class, 'updateImageProfile']);
     });
 
     Route::prefix('/todos')->group(function () {

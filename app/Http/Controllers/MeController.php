@@ -5,18 +5,21 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UpdateImageProfileRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Http\Resources\UserResource;
+use App\Jobs\DeleteFile;
 use App\Services\UserService;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class MeController extends Controller
 {
     private UserService $userService;
-    private $storage;
 
     public function __construct(UserService $userService, Storage $storage)
     {
         $this->userService = $userService;
-        $this->storage = $storage::disk('s3');
     }
 
     public function index()
@@ -34,10 +37,26 @@ class MeController extends Controller
 
     public function updateImageProfile(UpdateImageProfileRequest $request)
     {
-        $input = $request->validated();
+        $user = auth()->user();
 
-        $file = $input->file('image_profile');
+        $path = $this->store($request->image_profile, $user->id);
 
-        $this->storage->put(auth()->user()->generateImageProfilePath(), $file);
+        $oldImageProfileUrl = $user->image_profile;
+
+        $user->image_profile = $path;
+
+        $user->save();
+
+        if ($oldImageProfileUrl)
+            dispatch(new DeleteFile($oldImageProfileUrl));
+
+        return $path;
+    }
+
+    public function store($image_profile, int $user_id)
+    {
+        $path = Storage::disk('s3')->put((string) $user_id, $image_profile);
+        Storage::disk('s3')->setVisibility($path, 'public');
+        return Storage::disk('s3')->url($path);
     }
 }

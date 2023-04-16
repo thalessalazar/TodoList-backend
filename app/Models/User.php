@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Lcobucci\JWT\Signer\Hmac\Sha256;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 use App\Models\Transaction;
 
@@ -88,6 +89,6 @@ class User extends Authenticatable implements JWTSubject
 
     public function generateImageProfilePath(): string
     {
-        return sha1((string) $this->id) . '/profile/' . ;
+        return bin2hex((string) $this->id) . '/profile/DCM_' . bin2hex((string) $this->id);
     }
 }

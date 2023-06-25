@@ -46,7 +46,9 @@ class MeController extends Controller
         if ($oldImageProfileUrl)
             dispatch(new DeleteFile($oldImageProfileUrl));
 
-        return $path;
+        $user->fresh();
+
+        return new UserResource($user);
     }
 
     public function store($image_profile, int $user_id)
